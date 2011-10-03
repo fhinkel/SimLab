@@ -1,14 +1,32 @@
 /* CSS for SimLab */
 
+body {
+	background-color: white;
+}
 
-
+#tour {
+	float: left; 
+	padding: 10px;
+	vertical-align: bottom;
+	border-radius:25px;
+	-moz-border-radius:25px; /* Firefox 3.6 and earlier */	
+	background-color: #E3E0E0;
+	box-shadow: 10px 10px 5px #888888;
+	-webkit-box-shadow: 10px 10px 5px #888888; /* Safari */
+	font-weight: bold;
+}
 
 #menu {
-	position: relative;
-	top: 100px;
+	/*position: relative;
+	top: 100px;*/
 	float: left;
 	width: 15%;
 	padding: 10px;
+	height: 100%;
+	border-radius:25px;
+	-moz-border-radius:25px; /* Firefox 3.6 and earlier */	
+	background-color: #E3E0E0;
+
 }
 
 #main {
@@ -30,18 +48,40 @@
 	border-left: 2px black solid;
 }
 
-#footer, #header {
+#footer {
 	border-top: 2px black solid;
 	border-bottom: 2px black solid;
+	background-color: white;
+	
 
 }
 
-#header {
-	position: static;
+#build, #experiment /*, #wiringDiagram */{
+	padding: 15px;
+	border:2px solid;
+	border-radius:15px;
+	-moz-border-radius:15px; /* Firefox 3.6 and earlier */
+	box-shadow: 10px 10px 5px #888888;
+	-webkit-box-shadow: 10px 10px 5px #888888; /* Safari */
+	background-color: white;
+	
 }
+
+*[name=wiring] {
+	padding: 15px;
+	border:2px solid;
+	box-shadow: 10px 10px 5px #888888;
+	-webkit-box-shadow: 10px 10px 5px #888888; /* Safari */
+}
+
+
 
 #footer {
 	float: left;
+}
+
+#intro {
+	font-weight: bold;
 }
 
 /* simple css-based tooltip */
@@ -63,10 +103,31 @@
 #notes {
 	float: left;
 	width: 10%;
-	height: 500px;
+	height: 300px;
 	padding: 20px;
 	background-image: url("./notepad.jpg");
 	/*background-attachment: fixed;
     /*background-position: 100% 100%;*/
     background-repeat: no-repeat;
 }
+
+ul, li, ul li a {
+	display: block;
+	list-style: none;
+	text-decoration: none;
+	/*width: 100%;
+	margin: 0;
+	padding-left: 4px;
+	color: #ffffff;
+	font-weight: bold;
+	background-color: #87714a;
+	border: 1px #666666 outset;*/
+
+	
+
+}
+
+ul li a:hover { 
+	color: #4ba513;
+}
+
