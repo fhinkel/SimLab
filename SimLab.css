@@ -60,3 +60,13 @@
 	-webkit-box-shadow:0 0 10px #000;
 }
 
+#notes {
+	float: left;
+	width: 10%;
+	height: 500px;
+	padding: 20px;
+	background-image: url("./notepad.jpg");
+	/*background-attachment: fixed;
+    /*background-position: 100% 100%;*/
+    background-repeat: no-repeat;
+}
