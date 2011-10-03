@@ -1,0 +1,45 @@
+/* CSS for SimLab */
+
+
+
+
+#menu {
+	position: relative;
+	top: 100px;
+	float: left;
+	width: 15%;
+	padding: 10px;
+}
+
+#main {
+	float: left;
+	padding: 10px;
+	width: 65%;
+}
+
+
+#leftSide, #rightSide {
+	float: left;
+	width: 45%;
+	padding: 10px;
+
+}
+
+
+#rightSide {
+	border-left: 2px black solid;
+}
+
+#footer, #header {
+	border-top: 2px black solid;
+	border-bottom: 2px black solid;
+
+}
+
+#header {
+	position: static;
+}
+
+#footer {
+	float: left;
+}
