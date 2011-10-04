@@ -11,10 +11,10 @@ $(document).ready(function() {
     function(i, node) {
         $("#nodeList").append('<li><a href="#">' + node + '</a></li>');
         //make a div to hold content of that table when switching to different table
-        $('body').append('<div id="' + node + '" ></div>');
+        $('body').append('<div id="' + node + '" style="clear: both;" ></div>');
         $('body').children().last().append('<div class="table">' + '</div>');
         $('body').children().last().append('<div class="function"></div>');
-        $('body').children().last().hide();
+        //$('body').children().last().hide();
     });
 
     //alert( $('#x1 > .table').html());
@@ -30,7 +30,7 @@ $(document).ready(function() {
         //alert (node);
         var tt = '';
         if ($("#" + node + "> .table").text() == '') {
-            tt = "x1(t)\t x2(t) " + node + "(t+1)\n0\t 0 \n0\t 1 \n1\t 0 \n1\t 1 \n";
+            tt = "x1(t)\t x2(t) " + node + "(t+1)\n0\t 0 \t0\n0\t 1 \t0 \n1\t 0 \t0\n1\t 1 \t1\n";
         }
         else {
             tt = $("#" + node + "> .table").text();
@@ -42,6 +42,7 @@ $(document).ready(function() {
     // do something with output once moving out of edit field
     $("#regRules").blur(function() {
         tt = $("#regRules").val();
+		//alert( tt );
         node = $("#nodeList .active").text();
         //alert (node);
         $.post("interpolateTable.rb", {
@@ -49,7 +50,7 @@ $(document).ready(function() {
             n: node
         },
         function(f) {
-            $("#" + node + "> .function").text(f);
+            $("#" + node + "> .function").html( f );
 			computeSteadyStates();
         });
         $("#" + node + "> .table").text(tt);
