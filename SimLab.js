@@ -9,24 +9,30 @@ $(document).ready(function() {
 	var nodes = ['x1', 'x2', 'x3', 'x4'];
 	$.each(nodes, function( i, node ) {
 		$("#nodeList").append('<li><a href="#">' + node + '</a></li>');
+		//make a div to hold content of that table when switching to different table
+		$('body').append( '<div id="' + node + '" ></div>');
+		$('body').children().last().append('<div class="table">' + '</div>');
+		$('body').children().last().append('<div class="function"></div>');
+		//$('body').children().last().hide();
+	
 	});
 	
+	//alert( $('#x1 > .table').html());
 	$("#nodeList a").bind( 'click', function(e) {
 		//alert ( $(this).text() );
 		//alert($(this).parent().parent().text());
-		$(this).parent().parent().children().children().removeClass('active');
-		
-		$(this).parent().parent().children().children().css( 'background-color', '#036');
+		$(this).parent().siblings().children().removeClass('active');
+		$(this).parent().siblings().children().css( 'background-color', '#036');
 		$(this).css('background-color', 'blue');
 		$(this).toggleClass('active');
 		var node = $(this).text();
 		//alert (node);
 		var tt = '';
-		if ( $("#" + node ).text() == '' ) {
+		if ( $("#" + node + "> .table").text() == '' ) {
 			tt = "x1(t)\t x2(t) " + node + "(t+1)\n0\t 0 \n0\t 1 \n1\t 0 \n1\t 1 \n";
 		}
 		else {
-			tt = $("#" + node ).text();
+			tt = $("#" + node + "> .table").text();
 		}
 		$("#regRules").val(tt);
 		e.preventDefault();
@@ -37,11 +43,11 @@ $(document).ready(function() {
 		tt = $("#regRules").val();
 		node = $("#nodeList .active").text();
 		//alert (node);
-		$.post( "interpolateTable.rb", {r: tt, n: node}, function() {
-			
+		$.post( "interpolateTable.rb", {t: tt, n: node}, function( f ) {
+			$("#" + node + "> .function").text( f );
 		});
 		
-		$("#" + node ).text( tt );
+		$("#" + node + "> .table").text( tt );
 	});
 } );
 
