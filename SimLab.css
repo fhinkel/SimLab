@@ -8,6 +8,18 @@ body {
 	float: left;
 }
 
+textarea {
+	width: 300px;
+}
+
+
+div, img, ul {
+	border: 0px solid red;
+	
+}
+#regRules, #wiringDiagramArea {
+	height: 150px;
+}
 #tour {
 	padding: 20px;
 	vertical-align: bottom;
@@ -66,6 +78,7 @@ body {
 }
 
 #build, #experiment /*, #wiringDiagram */{
+	float: left;
 	padding: 15px;
 	border:2px solid;
 	border-radius:15px;
@@ -104,7 +117,7 @@ body {
 	display:none;
 	color:#fff;
 	text-align:left;
-	font-size:12px;
+	font-size:14px;
 
 	/* outline radius for mozilla/firefox only */
 	-moz-box-shadow:0 0 10px #000;
@@ -112,7 +125,26 @@ body {
 }
 
 
-ul, li, ul li a {
+#nodeList li { 
+	display: inline; 
+}
+
+#nodeList li a
+{
+text-decoration: none;
+padding: .2em .2em;
+color: #fff;
+background-color: #036;
+}
+
+#nodeList li a:hover
+{
+color: #fff;
+background-color: #369;
+}
+
+
+ul, li, ul li {
 	display: block;
 	list-style: none;
 	text-decoration: none;
@@ -124,9 +156,6 @@ ul, li, ul li a {
 	font-weight: bold;
 	background-color: #87714a;
 	border: 1px #666666 outset;*/
-
-	
-
 }
 
 ul li a:hover { 

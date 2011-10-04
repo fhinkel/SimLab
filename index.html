@@ -45,7 +45,7 @@
 			</ul>
 		</div>
 		<div id="main">
-			<img src="./simlab-logo.png" id="logo" alt="SimLab - Biological Networks Simulation Laboratory">
+			<img src="./simlab-logo.png" id="logo" alt="SimLab - Biological Networks Simulation Laboratory" name="logo">
 			<div id="tour">
 				First time using SimLab? <a href="./tour.html">Take the tour</a>!
 			</div>
@@ -73,20 +73,24 @@
 					<h2>
 						Regulatory links
 					</h2>
-					<textarea name="wiringDiagramArea" id="wiringDiagramArea" rows="12" cols="40">RA -> "Intracellular Receptors" [color=blue];
-RA -> Kremen;
-ICAT -> "ß-catenin";
-"ß-catenin" -> Lef1 ;
-Lef1 ->  "Cyclin D"  [color=green];
-Lef1 -> "c-myc" [color=green];
+					<textarea name="wiringDiagramArea" id="wiringDiagramArea">
+x1 -> x2 -> x3;
+x2 -> x1;
+x4 -> x1;
+x4 -> x2;
+x3 -> x4;
 </textarea>
 					<div class="tt">
-						Enter which nodes affect which other nodes. These regulatory links include transcriptional regulation (activation and inhibition), phosphorylation, transport. Press the refresh button to generate a wiring diagram of your network. To specify an interaction from protein A to protein B, write A->B", followed by a semicolon. This is case sensitive, so A->B; B->a; creates three nodes. If a node A affects both B and C, specify it as A->B; A->C;
+						Enter which nodes affect which other nodes. These regulatory links include transcriptional regulation (activation and inhibition), phosphorylation, transport. Press the refresh button to generate a wiring diagram of your network. To specify an interaction from protein A to protein B, write A-&gt;B", followed by a semicolon. This is case sensitive, so A-&gt;B; B-&gt;a; creates three nodes. If a node A affects both B and C, specify it as A-&gt;B; A-&gt;C;<br><b>Please us x1, ..., xn for your variables. Thanks. </b>
 					</div>
 					<h2>
 						Regulatory rules
 					</h2>
-					<textarea>
+					<ul id="nodeList" style="float: left;"></ul><br>
+					<div class="tt">
+						Click on a node to specify its regulatory rules in the table.
+					</div>
+					<textarea id="regRules">
 </textarea>
 					<div class="tt">
 						Specify the combinatorial effect that the variables have on each other. For each variable, complete the transition table
@@ -97,7 +101,7 @@ Lef1 -> "c-myc" [color=green];
 				<div id="wiringDiagram">
 					<h2>
 						Wiring Diagram
-					</h2><img src="./wiring.jpg" name="wiring" alt="Wiring Diagram" height="300" width="200" id="wiring"> <img src="./refresh.jpg" alt="Refresh" name="refreshWiring" height="25">
+					</h2><img src="./wiring.jpg" name="wiring" alt="Wiring Diagram" height="300" width="200" id="wiring"> <img src="./refresh.jpg" alt="Refresh" name="refreshWiring" height="25" id="refreshWiring">
 					<div class="tt">
 						The <i>Wiring Diagram</i> helps you visualize the static relationship of the model. You can reload the wiring diagram to incorporate the changes you made in <i>Regulatory links</i> or <i>Regulatory rules</i>.
 					</div>
@@ -129,18 +133,19 @@ Lef1 -> "c-myc" [color=green];
 		<div id="notes">
 			<h2>
 				Notes
-			</h2>
-			<img src="./notepad.jpg" alt="notes"><br>
-			
-			
-				<img src="./vbi-logo.png" alt="Virignia Bioinformatics Institute Logo" width="250"><br>
-				<br>
-				<img src="./vt_logo.jpg" alt="Virginia Tech Logo" height="25"><br>
-				<img src="./mbi_logo.jpg" alt="MBI Logo" height="100"><br>
-				<img src="./nsf-logo.png" alt="NSF Logo" height="75"><br>
-				<img src="./osu-logo.png" alt="OSU Logo" height="75"><br>
-				<!-- img src="./ARL-logo.jpg" alt="Virginia Tech Logo" height="75"> -->
-		
+			</h2><img src="./notepad.jpg" alt="notes"><br>
+			<img src="./vbi-logo.png" alt="Virignia Bioinformatics Institute Logo" width="250"><br>
+			<br>
+			<img src="./vt_logo.jpg" alt="Virginia Tech Logo" height="25"><br>
+			<img src="./mbi_logo.jpg" alt="MBI Logo" height="100"><br>
+			<img src="./nsf-logo.png" alt="NSF Logo" height="75"><br>
+			<img src="./osu-logo.png" alt="OSU Logo" height="75"><br>
+			<!-- img src="./ARL-logo.jpg" alt="Virginia Tech Logo" height="75"> -->
 		</div>
+		<div id="A" style="clear: both;"></div>
+		<div id="B"></div>
+		
+		<div id="C"></div>
+		
 	</body>
 </html>
