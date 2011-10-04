@@ -73,7 +73,16 @@
 					<h2>
 						Regulatory links
 					</h2>
-					<textarea>
+					<textarea name="wiringDiagramArea" id="wiringDiagramArea">digraph melanoma {
+RA -> "Intracellular Receptors" [color=blue];
+RA -> "Kremen" [color=green];
+ICAT -> "ß-catenin" [color=red];
+"ß-catenin" -> Lef1 [color=green];
+"ß-catenin" -> "Cyclin D" [color=green];
+"ß-catenin" -> "c-myc" [color=green];
+Lef1 ->  "Cyclin D"  [color=green];
+Lef1 -> "c-myc" [color=green];
+}
 </textarea>
 					<div class="tt">
 						Enter which nodes affect which other nodes. These regulatory links include transcriptional regulation (activation and inhibition), phosphorylation, transport. Press the refresh button to generate a wiring diagram of your network.
@@ -92,7 +101,7 @@
 				<div id="wiringDiagram">
 					<h2>
 						Wiring Diagram
-					</h2><img src="./wiring.jpg" name="wiring" alt="Wiring Diagram" height="300" id="wiring"> <img src="./refresh.jpg" alt="Refresh" height="25">
+					</h2><img src="./wiring.jpg" name="wiring" alt="Wiring Diagram" height="300" width="200" id="wiring"> <img src="./refresh.jpg" alt="Refresh" name="refreshWiring" height="25">
 					<div class="tt">
 						The <i>Wiring Diagram</i> helps you visualize the static relationship of the model. You can reload the wiring diagram to incorporate the changes you made in <i>Regulatory links</i> or <i>Regulatory rules</i>.
 					</div>
