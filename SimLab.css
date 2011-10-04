@@ -4,12 +4,15 @@ body {
 	background-color: white;
 }
 
+#logo, #tour, #menu, #main, #notes {
+	float: left;
+}
+
 #tour {
-	float: left; 
-	padding: 10px;
+	padding: 20px;
 	vertical-align: bottom;
-	border-radius:25px;
-	-moz-border-radius:25px; /* Firefox 3.6 and earlier */	
+	border-radius:10px;
+	-moz-border-radius:10px; /* Firefox 3.6 and earlier */	
 	background-color: #E3E0E0;
 	box-shadow: 10px 10px 5px #888888;
 	-webkit-box-shadow: 10px 10px 5px #888888; /* Safari */
@@ -19,7 +22,6 @@ body {
 #menu {
 	/*position: relative;
 	top: 100px;*/
-	float: left;
 	width: 15%;
 	padding: 10px;
 	height: 100%;
@@ -30,9 +32,16 @@ body {
 }
 
 #main {
-	float: left;
 	padding: 10px;
-	width: 65%;
+	width: 60%;
+	border: 2px black solid;
+}
+
+
+#notes {
+	width: 10%;
+	height: 300px;
+	padding: 10px;
 }
 
 
@@ -78,10 +87,12 @@ body {
 
 #footer {
 	float: left;
+	font-size: 12px;
 }
 
 #intro {
 	font-weight: bold;
+	clear: left;
 }
 
 /* simple css-based tooltip */
@@ -100,21 +111,12 @@ body {
 	-webkit-box-shadow:0 0 10px #000;
 }
 
-#notes {
-	float: left;
-	width: 10%;
-	height: 300px;
-	padding: 20px;
-	background-image: url("./notepad.jpg");
-	/*background-attachment: fixed;
-    /*background-position: 100% 100%;*/
-    background-repeat: no-repeat;
-}
 
 ul, li, ul li a {
 	display: block;
 	list-style: none;
 	text-decoration: none;
+	padding-left: 4px;
 	/*width: 100%;
 	margin: 0;
 	padding-left: 4px;
