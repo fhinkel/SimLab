@@ -17,7 +17,7 @@ div, img, ul {
 	border: 0px solid red;
 	
 }
-#regRules, #wiringDiagramArea {
+#regRules, #wiringDiagramArea, #dynamics {
 	height: 150px;
 }
 #tour {
