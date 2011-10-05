@@ -40,19 +40,25 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+	$("#wiringDiagramArea").blur( function() {
+		// parse wiring diagram to predefine tables
+		var data = $("#wiringDiagramArea").val();
+		$.post( "parseWiring.rb", {d: data}, function(res){
+			$('body').append('<div style="background-color: red">' + res+ '</div>')
+		});
+		
+	});
+
     // do something with output once moving out of edit field
     $("#regRules").blur(function() {
         tt = $("#regRules").val();
-		//alert( tt );
         node = $("#nodeList .active").text();
-        //alert (node);
-        $.post("interpolateTable.rb", {
-            t: tt,
-            n: node
-        },
-        function(f) {
-            $("#" + node + "> .function").html( f );
-			computeSteadyStates();
+        $.post("interpolateTable.rb", { t: tt,
+        	    n: node
+	        },
+	        function(f) {
+	            $("#" + node + "> .function").html( f );
+				computeSteadyStates();
         });
         $("#" + node + "> .table").text(tt);
 
