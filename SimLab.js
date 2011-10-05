@@ -1,11 +1,12 @@
 $(document).ready(function() {
     $('.tt').addClass('tooltip');
-    $('.tt').before('<img src="./qm.jpg" alt="tooltip" name="tooltip" height="20" class="trigger">');
+    $('.tt').before('<img src="./img/qm.jpg" alt="tooltip" name="tooltip" height="20" class="trigger">');
     $(".trigger").tooltip();
 
     //$("[name='wiringDiagramArea']").blur( renderWiringDiagram );
     $("[name='refreshWiring']").click(renderWiringDiagram);
 
+	
     var nodes = ['x1', 'x2', 'x3', 'x4'];
     $.each(nodes,
     function(i, node) {
