@@ -8,7 +8,7 @@ puts cgi.header
 h = cgi.params 
 data = h['d']
 
-puts "<pre>"
+
 a = data.to_s.split(/\n|;/).reject!{ |s| s.empty?}
 hh = Hash.new 
 a.each{ |l| 
@@ -20,9 +20,7 @@ a.each{ |l|
     end
     
   }
-  puts aa
   aa.each_cons(2){ |pair|
-    pp pair
     source = pair.first
     target = pair.last
     hh[source].push target 
@@ -30,8 +28,9 @@ a.each{ |l|
 }
 
 
-pp hh
-  
-puts "<\pre>"
+pp hh.keys
+pp hh.values
+#pp hh
+#puts hh
   
 

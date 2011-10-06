@@ -8,12 +8,8 @@ puts cgi.header
 
 h = cgi.params
 
-n = h['n'].to_s.scan(/\d/)
-
-
 t = h['t']
 
-puts "<pre>"
 
 
 
@@ -88,7 +84,7 @@ vals.chop!
 m2_result = `/usr/local/bin/M2 indicatorFunc.m2 --stop --no-debug --silent -q -e 'interpolate( {#{LL} }, #{p}, {#{vals}} ); exit 0'`
 
 #puts "The following function interpolates the transition table: <br>"
-puts "f_#{outputName.gsub(/\(.*\)/, "")} = #{m2_result}<br><br>"
+puts "f_#{outputName.gsub(/\(.*\)/, "")} = #{m2_result}"
 #puts "</pre>"
 
 exit 0
