@@ -11,9 +11,19 @@ data = h['d']
 
 a = data.to_s.split(/\n|;/).reject!{ |s| s.empty?}
 hh = Hash.new 
-a.each{ |l| 
+a.each{ |l|
+  #puts "line: " 
+  #puts l
+  
+  l.sub!(/\[.*\]/, '')
+  #puts l
+  
   aa = l.split(/->/)
-  aa.map!{ |var| var.strip }
+  aa.map!{ |var| 
+    var.gsub!(/\"/, '')
+    var.strip 
+    
+  }
   aa.each{ |var| 
     unless (hh.key?var) then
       hh[var] = []

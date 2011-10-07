@@ -117,7 +117,7 @@ $(document).ready(function() {
 		var data = $("#wiringDiagramArea").val();
 		$.post( "parseWiring.rb", {d: data}, function(res){
 			$("#nodeList").children().remove();
-			//console.log(res);
+			console.log(res);
 			var lines = eval(res);
 			//console.log( lines );
 			//console.log("lines[0]: " + lines[0]);
