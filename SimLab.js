@@ -8,7 +8,7 @@ var model = {
 	// false if it's already in the list
 	add: function(name, inputs) {
 		var node = this.getNode( name );
-		//console.log(node);
+		console.log("Adding: " + node);
 		if( node ) { 
 			node.nodeInputs = inputs;
 			return false;
@@ -111,25 +111,29 @@ $(document).ready(function() {
     });
 
 	$("#wiringDiagramArea").blur( function(e) {
-		console.log('blur out of wiring diagram');
-		console.log(e.isDefaultPrevented());
+		//console.log('blur out of wiring diagram');
+		//console.log(e.isDefaultPrevented());
 		// parse wiring diagram to predefine tables
 		var data = $("#wiringDiagramArea").val();
 		$.post( "parseWiring.rb", {d: data}, function(res){
 			$("#nodeList").children().remove();
 			//console.log(res);
-			var lines = res.split(/\n/);
-			var nodes = eval(lines[0]);
-			var inputs = eval(lines[1]);
-			//console.log(nodes);
-			//console.log(inputs);
+			var lines = eval(res);
+			//console.log( lines );
+			//console.log("lines[0]: " + lines[0]);
+			var nodes = lines[0];
+			//console.log("Nodes: " + nodes);
+			var inputs = lines[1];
+			//console.log("Inputs: " + inputs);
 			for (var i = 0; i < nodes.length; i++) {
 				model.add(nodes[i], inputs[i]);
 			};
+			//console.log( "Nodes in model: " + model.nodes.length);
 			// set the first node to be the active node, i.e., its table is shown
 			if (!model.activeNode) {
 				model.activeNode = model.nodes[0];
 			}
+			
 			for( var i=0; i < model.nodes.length; i++) {
 				var node = model.nodes[i];
 				$("#nodeList").append('<li><a href="#">' + node.nodeName + '</a></li>');

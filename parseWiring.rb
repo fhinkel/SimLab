@@ -28,8 +28,9 @@ a.each{ |l|
 }
 
 
-pp hh.keys
-pp hh.values
+#Array.new(hh.keys, hh.values)
+pp [hh.keys, hh.values]
+
 #pp hh
 #puts hh
   
