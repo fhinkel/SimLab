@@ -13,6 +13,7 @@ textarea {
 }
 
 
+
 div, img, ul {
 	border: 0px solid red;
 	
@@ -141,6 +142,10 @@ background-color: #036;
 {
 color: #fff;
 background-color: #369;
+}
+
+#nodeList li a.active {
+	background-color: blue;
 }
 
 

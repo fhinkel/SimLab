@@ -2,7 +2,22 @@
 // an object for the model that the user enters
 // an array of nodes
 var model = {
+	activeNode: undefined,
 	nodes: [],
+	// returns true if a new node has been added
+	// false if it's already in the list
+	add: function(name, inputs) {
+		var node = this.getNode( name );
+		//console.log(node);
+		if( node ) { 
+			node.nodeInputs = inputs;
+			return false;
+		} else {
+			node = new Node( name, inputs );
+			this.nodes.push( node );
+			return true;
+		}
+	},
 	getNode: function( n ) {
 		// console.log("Getting node");
 		for(var i=0; i < this.nodes.length; i++) {
@@ -48,6 +63,19 @@ var model = {
 			});
 		};
 	    return ret;
+	},
+	
+	interpolateTable: function() {
+		tt = $("#regRules").val();
+		var node = this.activeNode;
+		node.nodeTable = tt;
+        $.post("interpolateTable.rb", { t: node.nodeTable
+	        },
+	        function(f) {
+	            console.log( f );
+				node.nodeFunction = f;
+				this.computeSteadyStates();
+        });
 	}
 };
 
@@ -55,7 +83,7 @@ function Node( variable, inputs ) {
 	this.nodeName = variable;
 	this.nodeInputs = inputs;
 	this.nodeFunction = undefined;
-	this.nodeTable = undefined;
+	this.nodeTable = "x1(t)\t x2(t) " + this.nodeName + "(t+1)\n0\t 0 \t0\n0\t 1 \t0 \n1\t 0 \t0\n1\t 1 \t1\n";
 	
 };
 
@@ -70,28 +98,21 @@ $(document).ready(function() {
 
     $("#nodeList li a").live('click',
     function(e) {
+		console.log('click on list');
+		model.interpolateTable(); // interpolate the table you just moved away from
+
         //alert($(this).parent().parent().text());
         $(this).parent().siblings().children().removeClass('active');
-        $(this).parent().siblings().children().css('background-color', '#036');
-        $(this).css('background-color', 'blue');
         $(this).addClass('active');
         var node = model.getNode( $(this).text() );
-		
-		//console.log(node.nodeName);
-		if (node.nodeTable) {
-			//console.log("A table was already started");
-			//console.log(node.nodeTable);
-			var tt = node.nodeTable;
-		} else {
-			//console.log("Making table based on inputs");
-		    tt = "x1(t)\t x2(t) " + node.nodeName + "(t+1)\n0\t 0 \t0\n0\t 1 \t0 \n1\t 0 \t0\n1\t 1 \t1\n";
-			node.nodeTable = tt;
-		}
-        $("#regRules").val(tt);
+	 	model.activeNode = node;
+        $("#regRules").val(node.nodeTable);
         e.preventDefault();
     });
 
-	$("#wiringDiagramArea").blur( function() {
+	$("#wiringDiagramArea").blur( function(e) {
+		console.log('blur out of wiring diagram');
+		console.log(e.isDefaultPrevented());
 		// parse wiring diagram to predefine tables
 		var data = $("#wiringDiagramArea").val();
 		$.post( "parseWiring.rb", {d: data}, function(res){
@@ -103,33 +124,28 @@ $(document).ready(function() {
 			//console.log(nodes);
 			//console.log(inputs);
 			for (var i = 0; i < nodes.length; i++) {
-				var node = new Node(nodes[i], inputs[i]);
-				console.log(node.nodeName );
-				model.nodes.push(node);
+				model.add(nodes[i], inputs[i]);
 			};
+			// set the first node to be the active node, i.e., its table is shown
+			if (!model.activeNode) {
+				model.activeNode = model.nodes[0];
+			}
 			for( var i=0; i < model.nodes.length; i++) {
 				var node = model.nodes[i];
 				$("#nodeList").append('<li><a href="#">' + node.nodeName + '</a></li>');
+				if (node == model.activeNode) {
+					console.log("Active node is now " + model.activeNode.nodeName );
+					console.log($("#nodeList a").last().html() );
+					$("#nodeList a").last().addClass('active');
+				}
 			}
 		});
+		//e.preventDefault();
 	});
 
-    // do something with output once moving out of edit field
-    $("#regRules").blur(function() {
-        tt = $("#regRules").val();
-        var nodeName = $("#nodeList .active").text();
-		console.log(nodeName);
-		var node = model.getNode( nodeName );
-		
-		node.nodeTable = tt;
-        $.post("interpolateTable.rb", { t: node.nodeTable
-	        },
-	        function(f) {
-	            console.log( f );
-				node.nodeFunction = f;
-				model.computeSteadyStates();
-        });
-    });
+    $("#regRules").blur( function() {
+		model.interpolateTable() 
+	});
 });
 
 
