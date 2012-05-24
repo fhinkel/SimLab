@@ -1,0 +1,18 @@
+MVC - maybe DJango
+
+model: 
+- mathematical (computation) model 
+- nodes
+- wiring wiring 
+- rules (in original form and in PDS form)
+- import experimental data 
+- results from analysis
+  * numerical information
+  * jpgs
+  * export results as csv
+
+user
+  - login, load/save models, share models
+
+View: 
+- 
