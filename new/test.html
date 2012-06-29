@@ -1,0 +1,180 @@
+<html>
+	<head>
+		<title>ADAM Canvas Test</title>
+		<link rel="stylesheet" href="test.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="./js/kinetic-v3.10.0.min.js"></script>
+        <script src="./js/mjs.js"></script>
+        <script>
+            var layer;
+            var nodes;
+            var r = 30;
+            
+            window.onload = function() {
+                initUI();
+                
+                $('#container').width($(window).innerWidth()*0.75);
+                $('#buttonContainer').width($('#container').width()*0.10);
+                $('#buttonContainer').height($(window).innerHeight()*0.065);
+                $('#canvasContainer').width($('#container').width()*0.74);
+                $('#messages').width($('#canvasContainer').width());
+                $('#messages').height(50);
+                
+                var stage = new Kinetic.Stage({
+                  container: "canvasContainer",
+                  width: $(window).innerWidth()*0.75,
+                  height: $(window).innerHeight()*0.75 
+                });
+                
+                layer = new Kinetic.Layer();
+                stage.add(layer);
+                
+                nodes = {
+                    ids: [],
+                    selected: []
+                };
+            };
+          
+            function initUI() {
+                $("#addnode").click(function() {
+                  setMessage('');
+                  addNode();
+                });
+                $("#addlink").click(function() {
+                  setMessage('');
+                  addLink();
+                });
+            }
+            
+            function setMessage(str) {
+                $('#messages').text(str);
+            }
+            
+            function deg(rad) {
+                return rad * (180/Math.PI);
+            }
+            
+            function edgePoint(ca, cb, r) {
+                var zeroVec = V3.$(ca[0]+r, ca[1], 0);
+                var zdir = V3.sub(zeroVec, ca);
+                var dir = V3.sub(cb, ca);
+            
+                var theta = Math.acos(V3.dot(zdir, dir)/(V3.length(zdir)*V3.length(dir)));
+                var x = Math.round(r * Math.cos(theta));
+                var y = Math.round(r * Math.sin(theta));
+                
+                d = 360 - deg(theta);
+                
+                if (d >= 0 && d < 90) {
+                    x = ca[0] + x;
+                    y = ca[1] - y;
+                }
+                else if (d >= 90 && d < 180) {
+                    x = ca[0] - x;
+                    y = ca[1] - y;
+                }
+                else if (d >= 180 && d < 270) {
+                    x = ca[0] + x;
+                    y = ca[1] - y;
+                }
+                else {
+                    x = ca[0] + x;
+                    y = ca[1] + y;
+                }
+                
+                return V3.$(x,y,0);
+            }
+            
+            function addNode() {
+                var c = V3.$(239,75,0);
+                
+                // retrieve the last id and increment
+                var nodeID = 0;
+                if (nodes.ids.length != 0) {
+                    nodeID = nodes.ids.slice(-1)[0] + 1;
+                }
+                nodes.ids.push(nodeID);
+                nodes[String(nodeID)] = c;
+                
+                var node = new Kinetic.Circle({
+                  x: c[0],
+                  y: c[1],
+                  radius: r,
+                  fill: "#A16FB9",
+                  stroke: "black",
+                  strokeWidth: 2,
+                  draggable: true,
+                  id: String(nodeID)
+                });
+                
+                node.on('click', function() {
+                    // select
+                    if (node.getStrokeWidth() == 2 && nodes.selected.length < 2) {
+                        node.setStrokeWidth(4);
+                        nodes.selected.push(node.getId());
+                    }
+                    //deselect
+                    else if (node.getStrokeWidth() == 4) {
+                        node.setStrokeWidth(2);
+                        idx = nodes.selected.indexOf(node.getId())
+                        nodes.selected.splice(idx, 1);
+                    }
+                    layer.draw();
+                });
+
+                node.on('dragend', function() {
+                    nodes[node.getId()] = V3.$(node.getX(), node.getY(), 0);
+                });
+                
+                layer.add(node);
+                layer.draw();
+            }
+          
+            
+            
+            function addLink() {
+                if (nodes.selected.length < 2) {
+                    setMessage('Please select 2 nodes');
+                    return;
+                }
+                c1 = nodes[nodes.selected[0]]
+                c2 = nodes[nodes.selected[1]]
+                
+                c1pt = edgePoint(c1, c2, r);
+                c2pt = edgePoint(c2, c1, r);
+                
+                var line = new Kinetic.Line({
+                  points: [c1pt[0], c1pt[1], c2pt[0], c2pt[1]],
+                  stroke: "blue",
+                  strokeWidth: 3,
+                  lineCap: "round",
+                  lineJoin: "round"
+                });
+                
+                var pt = new Kinetic.Circle({
+                  x: c2pt[0],
+                  y: c2pt[1],
+                  radius: 2,
+                  fill: "red"
+                });
+                
+                layer.add(line);
+                layer.add(pt);
+                layer.draw();
+            }
+    </script>
+	</head>
+	<body>
+        <div id="container">
+            <div id="buttonContainer">
+                <center>
+                <a href="javascript:void(0)" class="toolButton" id="addnode">Add Node</a>
+                <a href="javascript:void(0)" class="toolButton" id="addlink">Add Link</a>
+                </center>
+            </div>
+            <div id="canvasContainer"></div>
+            <div id="messages"></div>
+        </div>
+	    
+	</body>
+</html>
